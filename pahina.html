@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARALITA · Cuidado médico en casa</title>
+    
+    <!-- Fuentes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <style>
+        /* VARIABLES DE COLOR */
+        :root {
+            --bg-color: #0f1c1a;
+            --text-main: #e0e6e5;
+            --text-muted: #8a9f9b;
+            --pink: #f28b9f;
+            --pink-hover: #e0758a;
+            --teal-line: #2a4f4a;
+            --card-bg: #132421;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+        }
+
+        /* RESET Y ESTILOS BASE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; 
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px 20px 20px;
+        }
+
+        /* TIPOGRAFÍA */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            background-color: rgba(15, 28, 26, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--teal-line);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* LOGO EN LA NAVBAR */
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-logo-img {
+            width: 45px;
+            height: 45px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            object-fit: contain;
+            padding: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-btn-call {
+            border: 1px solid #49726c;
+            padding: 6px 16px;
+            border-radius: 20px;
+            color: #b5cec9 !important;
+        }
+
+        .nav-btn-call:hover {
+            background: rgba(73, 114, 108, 0.2);
+        }
+
+        /* --- SECCIÓN HERO RESPONSIVA --- */
+        .hero-fullscreen {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 20px;
+            background-color: var(--bg-color); 
+            overflow: hidden; 
+        }
+
+        /* EL LOGO DE FONDO */
+        .hero-bg-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; 
+            max-width: 900px; /* Aumentado para que en PC llene más la pantalla */
+            opacity: 0.08; /* Un poco más tenue para que no estorbe al leer en PC */
+            z-index: 1;
+            pointer-events: none; 
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; 
+            max-width: 800px; /* Más ancho en computadora para que el texto respire */
+            margin: 0 auto;
+            width: 100%;
+            text-align: center; 
+            /* Fondo radial para que el texto siempre sea legible sobre el logo */
+            background: radial-gradient(circle, rgba(15,28,26,0.85) 0%, rgba(15,28,26,0) 70%);
+            padding: 40px 20px;
+            border-radius: 40px;
+        }
+
+        .hero-fullscreen h1 {
+            font-size: 50px; /* Letra más grande en PC */
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+            color: #ffffff; 
+        }
+
+        .hero-fullscreen p {
+            font-size: 20px; /* Texto más grande en PC */
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: var(--text-main); 
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-pink {
+            display: block;
+            width: 100%;
+            max-width: 400px; /* Botón no tan ancho en PC */
+            margin: 0 auto 15px auto;
+            text-align: center;
+            background-color: var(--pink);
+            color: #fff;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-pink:hover {
+            background-color: var(--pink-hover);
+        }
+
+        .btn-secondary {
+            display: block;
+            width: 100%;
+            max-width: 400px; /* Botón no tan ancho en PC */
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(15, 28, 26, 0.6);
+            border: 1px solid #49726c;
+            color: #b5cec9;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(73, 114, 108, 0.3);
+        }
+
+        /* EL RESTO DEL CONTENIDO */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            background-color: var(--bg-color);
+            padding-top: 50px;
+        }
+
+        .visual-card {
+            background-color: var(--card-bg);
+            border-radius: 40px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ambulance-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px auto;
+            display: block;
+            filter: invert(46%) sepia(11%) saturate(1038%) hue-rotate(116deg) brightness(93%) contrast(88%);
+            -webkit-filter: invert(46%) sepia(11%) saturate(1038%) hue-rotate(116deg) brightness(93%) contrast(88%);
+        }
+
+        .visual-card-text {
+            background-color: #0d1a18;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+            text-align: left;
+            margin-top: 20px;
+            border: 1px solid #1f3834;
+        }
+
+        .visual-card-text h3 {
+            color: #7db0a8;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .visual-card-text p {
+            color: #fff;
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .accordion {
+            margin-top: 20px;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--teal-line);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #fff;
+            font-family: var(--font-serif);
+            font-size: 22px;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .accordion-icon {
+            color: var(--pink);
+            font-size: 24px;
+            font-family: var(--font-sans);
+            transition: transform 0.3s;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            padding-bottom: 0; 
+        }
+
+        .accordion-item.active .accordion-content {
+            padding-bottom: 20px;
+        }
+
+        .service-bg-card {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            align-items: flex-end;
+            background-color: #0d1a18;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .service-bg-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(13, 26, 24, 0.95) 0%, rgba(13, 26, 24, 0.4) 100%);
+            z-index: 1;
+        }
+
+        .service-text-wrapper {
+            position: relative;
+            z-index: 2;
+            padding: 25px 20px 20px 20px;
+            width: 100%;
+        }
+
+        .service-text-wrapper p {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.5;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        .how-it-works {
+            margin-top: 60px;
+        }
+
+        .step {
+            border-left: 2px solid #7db0a8;
+            padding-left: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .step-number {
+            color: var(--pink);
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .step h3 {
+            font-family: var(--font-sans);
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .coverage {
+            margin-top: 60px;
+            margin-bottom: 40px;
+        }
+
+        .tags {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            border: 1px solid #49726c;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 15px;
+            color: #d1dfdd;
+            width: fit-content;
+        }
+
+        .form-card {
+            border: 1px solid var(--teal-line);
+            border-radius: 30px;
+            padding: 30px 20px;
+            background-color: transparent;
+        }
+
+        .form-card h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .form-card p {
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .phone-link {
+            display: block;
+            color: #b5cec9;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #0d1a18;
+            border: 1px solid #2a4f4a;
+            color: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            font-family: var(--font-sans);
+            font-size: 16px;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--pink);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            background: transparent;
+            border: 1px solid #2a4f4a;
+            color: var(--text-muted);
+            padding: 14px 20px;
+            border-radius: 30px;
+            text-align: left;
+            font-size: 15px;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn.selected {
+            border-color: var(--pink);
+            color: #fff;
+        }
+
+        .floating-wa {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--pink);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        
+        /* =========================================
+           AJUSTES EXCLUSIVOS PARA CELULARES (Móvil)
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero-content {
+                max-width: 100%;
+                padding: 20px 10px; 
+                background: radial-gradient(circle, rgba(15,28,26,0.6) 0%, rgba(15,28,26,0) 60%);
+            }
+            
+            .hero-fullscreen h1 { 
+                font-size: 34px; 
+            }
+            
+            .hero-fullscreen p {
+                font-size: 17px;
+            }
+
+            .hero-bg-logo { 
+                width: 160%; 
+                max-width: none; 
+                opacity: 0.12;
+            } 
+            
+            .btn-pink, .btn-secondary {
+                max-width: 100%; /* Botones vuelven a ocupar todo el ancho en celular */
+            }
+
+            .nav-logo-img { width: 35px; height: 35px; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 13px; }
+            .nav-btn-call { padding: 4px 12px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo-container">
+                <img src="logo.jpeg" alt="M" class="nav-logo-img">
+            </a>
+            
+            <div class="nav-links">
+                <a href="#servicios">Servicios</a>
+                <a href="#contacto">Contacto</a>
+                <a href="tel:5626888580" class="nav-btn-call">Llamar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PANTALLA DE BIENVENIDA -->
+    <header class="hero-fullscreen">
+        
+        <!-- Logo de fondo -->
+        <img src="logo.jpeg" alt="" class="hero-bg-logo">
+        
+        <div class="hero-content">
+            <h1>Cuidado enfermero y gerontológico en casa, con la calma que tu familia necesita.</h1>
+            <p>Atención a domicilio para adultos mayores y personas en recuperación, en la Ciudad de México y su zona metropolitana.</p>
+            
+            <a href="https://wa.me/525626888580?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20MARALITA" class="btn-pink" target="_blank">Escribir por WhatsApp</a>
+            <a href="#contenido-principal" class="btn-secondary">Ver servicios</a>
+        </div>
+    </header>
+
+    <!-- EL RESTO DEL CONTENIDO -->
+    <div class="container main-content" id="contenido-principal">
+        
+        <!-- TARJETA VISUAL CON AMBULANCIA -->
+        <section class="visual-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/3063/3063822.png" alt="Ambulancia" class="ambulance-icon">
+            
+            <div class="visual-card-text">
+                <h3>En tu domicilio</h3>
+                <p>Personal que llega a tiempo y explica cada paso a la familia.</p>
+            </div>
+        </section>
+
+        <!-- SERVICIOS -->
+        <section id="servicios">
+            <h2 class="section-title">Servicios</h2>
+            <p>Toca un servicio para ver en qué consiste.</p>
+
+            <div class="accordion">
+                
+                <!-- SERVICIO 1 -->
+                <div class="accordion-item active">
+                    <button class="accordion-header">
+                        Cuidado a domicilio
+                        <span class="accordion-icon">×</span>
+                    </button>
+                    <div class="accordion-content" style="max-height: 300px;">
+                        <div class="service-bg-card" style="background-image: url('https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=800');">
+                            <div class="service-text-wrapper">
+                                <p>Acompañamiento y atención en casa por turnos o por horas: higiene, movilidad, alimentación y seguimiento de indicaciones médicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICIO 2 -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Adultos mayores
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="service-bg-card" style="background-image: url('https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80&w=800');">
+                            <div class="service-text-wrapper">
+                                <p>Atención especializada y acompañamiento para el bienestar integral de los adultos mayores en su hogar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICIO 3 -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Post-operatorio
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="service-bg-card" style="background-image: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800');">
+                            <div class="service-text-wrapper">
+                                <p>Cuidados necesarios durante la recuperación después de una cirugía, siguiendo las indicaciones médicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICIO 4 -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Inyecciones y curaciones
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="service-bg-card" style="background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800');">
+                            <div class="service-text-wrapper">
+                                <p>Aplicación de medicamentos y cuidados de heridas por personal de enfermería capacitado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SERVICIO 5 -->
+                <div class="accordion-item">
+                    <button class="accordion-header">
+                        Sesiones gerontológicas
+                        <span class="accordion-icon">+</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="service-bg-card" style="background-image: url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&q=80&w=800');">
+                            <div class="service-text-wrapper">
+                                <p>Terapias y actividades diseñadas para estimular física y cognitivamente a los adultos mayores.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CÓMO FUNCIONA -->
+        <section class="how-it-works">
+            <h2 class="section-title">Cómo funciona</h2>
+            <p>Un proceso corto para que la atención empiece pronto.</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>Cuéntanos qué necesitas</h3>
+                <p>Escríbenos o llámanos y platícanos la situación de tu familiar.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Armamos el plan</h3>
+                <p>Acordamos servicio, horarios y costo antes de comenzar.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>Vamos a tu domicilio</h3>
+                <p>El personal asignado llega a casa y te mantiene informado.</p>
+            </div>
+        </section>
+
+        <!-- ZONA DE COBERTURA -->
+        <section class="coverage">
+            <h2 class="section-title">Zona de cobertura</h2>
+            <p>Atendemos en la Ciudad de México y la zona metropolitana. Si tu colonia no aparece, consúltanos.</p>
+            <div class="tags">
+                <span class="tag">Ciudad de México</span>
+                <span class="tag">Zona metropolitana del Valle de México</span>
+            </div>
+        </section>
+
+        <!-- FORMULARIO -->
+        <section class="form-card" id="contacto">
+            <h2>Pide información</h2>
+            <p>Elige lo que buscas y te abrimos un mensaje de WhatsApp ya escrito. Sin compromiso.</p>
+            
+            <span style="color: var(--text-muted); font-size: 14px;">WhatsApp y teléfono:</span>
+            <a href="tel:5626888580" class="phone-link">56 2688 8580</a>
+
+            <div class="form-group">
+                <label>Tu nombre</label>
+                <input type="text" id="nombreInput" class="form-control" placeholder="Nombre">
+            </div>
+
+            <div class="form-group">
+                <label>¿Qué necesitas?</label>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="selectOption(this, 'Cuidado a domicilio')">Cuidado a domicilio</button>
+                    <button class="option-btn" onclick="selectOption(this, 'Adultos mayores')">Adultos mayores</button>
+                    <button class="option-btn" onclick="selectOption(this, 'Post-operatorio')">Post-operatorio</button>
+                    <button class="option-btn" onclick="selectOption(this, 'Inyecciones y curaciones')">Inyecciones y curaciones</button>
+                    <button class="option-btn" onclick="selectOption(this, 'Sesiones gerontológicas')">Sesiones gerontológicas</button>
+                </div>
+            </div>
+
+            <button class="btn-pink" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+        </section>
+
+    </div>
+
+    <!-- BOTÓN FLOTANTE -->
+    <a href="https://wa.me/525626888580?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20MARALITA" class="floating-wa" target="_blank">WhatsApp</a>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+
+                document.querySelectorAll('.accordion-item').forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                        otherItem.querySelector('.accordion-icon').textContent = '+';
+                    }
+                });
+
+                item.classList.toggle('active');
+                
+                if (item.classList.contains('active')) {
+                    setTimeout(() => {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }, 10);
+                    icon.textContent = '×';
+                } else {
+                    content.style.maxHeight = null;
+                    icon.textContent = '+';
+                }
+            });
+        });
+
+        let servicioSeleccionado = '';
+
+        function selectOption(button, servicio) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            servicioSeleccionado = servicio;
+        }
+
+        function enviarWhatsApp() {
+            const nombre = document.getElementById('nombreInput').value;
+            
+            if (!nombre) {
+                alert("Por favor, ingresa tu nombre.");
+                return;
+            }
+
+            if (!servicioSeleccionado) {
+                alert("Por favor, selecciona qué necesitas.");
+                return;
+            }
+
+            const telefono = "525626888580";
+            const mensaje = `Hola, soy ${nombre}. Me interesa el servicio de: ${servicioSeleccionado}. ¿Me pueden dar más información?`;
+            
+            const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
