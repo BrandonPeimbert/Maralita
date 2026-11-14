@@ -68,9 +68,10 @@
             top: 0;
             background-color: rgba(15, 28, 26, 0.95);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid var(--teal-line);
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         .nav-container {
@@ -82,12 +83,21 @@
             align-items: center;
         }
 
-        .nav-logo {
-            font-family: var(--font-serif);
-            font-size: 20px;
-            letter-spacing: 1px;
-            color: #d1dfdd;
+        /* LOGO EN LA NAVBAR */
+        .nav-logo-container {
+            display: flex;
+            align-items: center;
             text-decoration: none;
+        }
+
+        .nav-logo-img {
+            width: 45px;
+            height: 45px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            object-fit: contain;
+            padding: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .nav-links {
@@ -119,56 +129,66 @@
             background: rgba(73, 114, 108, 0.2);
         }
 
-        /* --- SECCIÓN HERO CON FONDO DE ENFERMERA Y PANTALLA COMPLETA --- */
+        /* --- SECCIÓN HERO AJUSTADA PARA QUITAR EL ESPACIO --- */
         .hero-fullscreen {
             position: relative;
-            min-height: 100vh;
+            /* Quitamos min-height: 100vh para que no fuerce el espacio */
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px 20px;
-            
-            /* IMAGEN DE ENFERMERA AYUDANDO A PACIENTE */
-            background-image: url('logo.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            padding: 100px 20px; /* Controlamos el espacio con padding */
+            background-color: var(--bg-color); 
+            overflow: hidden; 
         }
 
-        /* Capa oscura sobre la imagen para que el texto resalte */
-        .hero-fullscreen::before {
-            content: '';
+        /* EL LOGO DE FONDO */
+        .hero-bg-logo {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(15, 28, 26, 0.6) 0%, rgba(15, 28, 26, 0.95) 100%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%; 
+            max-width: 900px; 
+            opacity: 0.08; 
             z-index: 1;
+            pointer-events: none; 
         }
 
         .hero-content {
             position: relative;
-            z-index: 2;
-            max-width: 600px;
+            z-index: 2; 
+            max-width: 800px; 
             margin: 0 auto;
             width: 100%;
+            text-align: center; 
+            background: radial-gradient(circle, rgba(15,28,26,0.85) 0%, rgba(15,28,26,0) 70%);
+            padding: 40px 20px;
+            border-radius: 40px;
         }
 
         .hero-fullscreen h1 {
-            font-size: 48px;
+            font-size: 50px; 
             line-height: 1.1;
             margin-bottom: 25px;
             letter-spacing: -0.5px;
+            color: #ffffff; 
         }
 
         .hero-fullscreen p {
-            font-size: 18px;
+            font-size: 20px; 
             line-height: 1.6;
             margin-bottom: 40px;
-            color: #e0e6e5;
+            color: var(--text-main); 
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .btn-pink {
             display: block;
             width: 100%;
+            max-width: 400px; 
+            margin: 0 auto 15px auto;
             text-align: center;
             background-color: var(--pink);
             color: #fff;
@@ -177,7 +197,6 @@
             border-radius: 30px;
             font-size: 16px;
             font-weight: 700;
-            margin-bottom: 15px;
             border: none;
             cursor: pointer;
             transition: background 0.3s;
@@ -190,9 +209,10 @@
         .btn-secondary {
             display: block;
             width: 100%;
+            max-width: 400px; 
+            margin: 0 auto;
             text-align: center;
-            background: rgba(15, 28, 26, 0.5);
-            backdrop-filter: blur(5px);
+            background: rgba(15, 28, 26, 0.6);
             border: 1px solid #49726c;
             color: #b5cec9;
             text-decoration: none;
@@ -201,6 +221,11 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(73, 114, 108, 0.3);
         }
 
         /* EL RESTO DEL CONTENIDO */
@@ -221,14 +246,13 @@
             overflow: hidden;
         }
 
-        /* NUEVO ÍCONO DE AMBULANCIA */
         .ambulance-icon {
             width: 120px;
             height: 120px;
             margin: 0 auto 20px auto;
             display: block;
-            /* Filtro para darle el tono verde azulado de tu diseño */
             filter: invert(46%) sepia(11%) saturate(1038%) hue-rotate(116deg) brightness(93%) contrast(88%);
+            -webkit-filter: invert(46%) sepia(11%) saturate(1038%) hue-rotate(116deg) brightness(93%) contrast(88%);
         }
 
         .visual-card-text {
@@ -481,9 +505,41 @@
             z-index: 100;
         }
         
-        /* Ajuste para celulares muy pequeños */
-        @media (max-width: 400px) {
-            .hero-fullscreen h1 { font-size: 40px; }
+        /* =========================================
+           AJUSTES EXCLUSIVOS PARA CELULARES (Móvil)
+           ========================================= */
+        @media (max-width: 768px) {
+            .hero-fullscreen {
+                padding: 60px 20px; /* Menos padding en celular */
+            }
+            .hero-content {
+                max-width: 100%;
+                padding: 20px 10px; 
+                background: radial-gradient(circle, rgba(15,28,26,0.6) 0%, rgba(15,28,26,0) 60%);
+            }
+            
+            .hero-fullscreen h1 { 
+                font-size: 34px; 
+            }
+            
+            .hero-fullscreen p {
+                font-size: 17px;
+            }
+
+            .hero-bg-logo { 
+                width: 160%; 
+                max-width: none; 
+                opacity: 0.12;
+            } 
+            
+            .btn-pink, .btn-secondary {
+                max-width: 100%; 
+            }
+
+            .nav-logo-img { width: 35px; height: 35px; }
+            .nav-links { gap: 10px; }
+            .nav-links a { font-size: 13px; }
+            .nav-btn-call { padding: 4px 12px; }
         }
 
     </style>
@@ -493,7 +549,10 @@
     <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">MARALITA</a>
+            <a href="#" class="nav-logo-container">
+                <img src="logo.jpeg" alt="M" class="nav-logo-img">
+            </a>
+            
             <div class="nav-links">
                 <a href="#servicios">Servicios</a>
                 <a href="#contacto">Contacto</a>
@@ -502,10 +561,14 @@
         </div>
     </nav>
 
-    <!-- PANTALLA DE BIENVENIDA (HERO CON IMAGEN DE FONDO) -->
+    <!-- PANTALLA DE BIENVENIDA -->
     <header class="hero-fullscreen">
+        
+        <!-- Logo de fondo -->
+        <img src="logo.jpeg" alt="" class="hero-bg-logo">
+        
         <div class="hero-content">
-            <h1>Cuidado enfermero y gerontologico en casa, con la calma que tu familia necesita.</h1>
+            <h1>Cuidado enfermero y gerontológico en casa, con la calma que tu familia necesita.</h1>
             <p>Atención a domicilio para adultos mayores y personas en recuperación, en la Ciudad de México y su zona metropolitana.</p>
             
             <a href="https://wa.me/525626888580?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20MARALITA" class="btn-pink" target="_blank">Escribir por WhatsApp</a>
